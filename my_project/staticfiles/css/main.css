@@ -1,0 +1,106 @@
+body {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-row: left;
+}
+
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    display: grid;
+
+}
+
+#settings {
+    display: none;
+}
+
+header {
+    position: fixed;
+    width: 21%;
+    background-color: #52616b;
+    color: white;
+    
+    text-align: center;
+ 
+    height: 100%;
+
+}
+.user{
+    font-size: 39px;
+
+}
+
+header nav{
+    display: grid;
+    grid-template-columns: 1fr;
+  
+}
+header nav a {
+    color: white;
+  text-decoration: none;
+  display: grid;
+  
+  font-size: 25px;
+  padding: 30px;
+  border: solid 1px #c9d6df;
+  justify-content: space-around;
+}
+
+header nav a span{
+    grid-row: 1;
+    padding: 0;
+    margin: 0;
+}
+
+header nav a span img{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.chat-header {
+    width: 100%;
+    font-weight: 600;
+    font-size: 40px;
+    border: solid 1px #c9d6df;
+    display: flex;
+    justify-content: center;
+   
+}
+.chat-header img {
+    width: 40px;
+    border-radius: 50%;
+   
+}
+
+.side-li li {
+    float: left;
+    padding: 10px;
+}
+
+article{
+    position: absolute;
+    width: 79%;
+    height: 100%;
+    background-color: #f0f5f9;
+    color: #1e2022;
+    
+    text-align: center;
+    justify-self: end;
+}
+
+article h1{
+    font-size: 15px;
+    
+}
+
+
+article h1 img{
+    width: 50px;
+    border-radius: 50%;
+}
