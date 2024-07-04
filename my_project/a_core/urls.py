@@ -22,5 +22,5 @@ from zajel.views import index
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
-    path('', index)
+    path('', index, name='index')
 ]
