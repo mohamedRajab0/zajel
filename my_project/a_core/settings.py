@@ -91,6 +91,12 @@ AUTHENTICATION_BACKENDS = [
 
 ASGI_APPLICATION = 'a_core.asgi.application'
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 

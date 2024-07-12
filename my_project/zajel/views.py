@@ -10,12 +10,11 @@ def index(request):
     zajel_group = get_object_or_404(ZajelGroup, group_name='puplic-room')
     messages = zajel_group.chat_messages.all()
     form = MessageForms()
-
+    print("Request method:", request.method)
     if request.htmx:
         print("HTMX request received")
-
         form = MessageForms(request.POST)
-        print("Form data:", request.POST)
+        print("Form data:", form.data)
         if form.is_valid():
             message = form.save(commit=False)
             message.author = request.user
