@@ -1,0 +1,19 @@
+<div id="chat_messages" hx-swap-oob="beforeend">
+  
+
+<div class="chat-body" id="zajel-chat">
+  <di class="message">
+    <div class="sent-message">
+      <p>{% if message.author == user %} <span> You: </span></p>
+      <p>{{ message.body }}</p>
+    </div>
+    {% else %}
+    <div class="received-message">
+      <p>{{ message.body }}</p>
+    </div>
+
+    {% endif %}
+  
+</div>
+
+</div>

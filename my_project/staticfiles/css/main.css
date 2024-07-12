@@ -37,7 +37,7 @@ header {
 
 header nav{
     display: grid;
-    grid-template-columns: 1fr;
+    
   
 }
 header nav a {
@@ -46,7 +46,7 @@ header nav a {
   display: grid;
   
   font-size: 25px;
-  padding: 30px;
+  padding: 20px;
   border: solid 1px #c9d6df;
   justify-content: space-around;
 }

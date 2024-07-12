@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
     'allauth',
     'allauth.account',
     'django.contrib.admin',
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_htmx',
     'zajel',
 ]
 
@@ -52,6 +55,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'a_core.urls'
@@ -82,7 +87,7 @@ AUTHENTICATION_BACKENDS = [
  
 ]
 
-WSGI_APPLICATION = 'a_core.wsgi.application'
+# WSGI_APPLICATION = 'a_core.wsgi.application'
 
 ASGI_APPLICATION = 'a_core.asgi.application'
 
@@ -141,3 +146,11 @@ STATIC_ROOT = 'staticfiles'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# login redirect
+
+LOGIN_REDIRECT_URL = 'home'
+
+#signup redirect
+
+ACCOUNT_LOGOUT_REDIRECT = 'account_login'

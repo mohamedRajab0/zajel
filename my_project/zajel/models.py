@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+
 # Create your models here.
 
 class ZajelMessage(models.Model):
@@ -11,8 +12,7 @@ class ZajelMessage(models.Model):
     def __str__(self) -> str:
         return f'{self.author} : {self.body}'
     
-    class meta:
-        ordering = ['-created']
+
    
 
 class ZajelGroup(models.Model):
