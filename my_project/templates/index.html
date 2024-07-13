@@ -1,76 +1,74 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Zajel</title>
-        <link rel="stylesheet" href="{% static "css/main.css" %}">
-         <script src="https://unpkg.com/htmx.org@1.7.0"></script>
-            <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
-    </head>
-    <>
-        <header>
-            <div class="user">
+<head>
+    <title>Zajel</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var ws = new WebSocket('ws://' + window.location.host + '/ws/chat/{{ group_name }}/');
+            ws.onmessage = function(event) {
+                var data = JSON.parse(event.data);
+                var chatLog = document.querySelector('#chat-log');
+                chatLog.innerHTML += data.html;
+                chatLog.scrollTop = chatLog.scrollHeight; // Scroll to the bottom
+            };
+
+            ws.onclose = function(e) {
+                console.error('Chat socket closed unexpectedly');
+            };
+
+            document.querySelector('#chat-form').onsubmit = function(e) {
+                e.preventDefault();
+                var messageInputDom = document.querySelector('#id_body');
+                var message = messageInputDom.value;
+                if (message) {
+                    ws.send(JSON.stringify({ 'body': message }));
+                    messageInputDom.value = '';
+                }
+            };
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="user">
             <img src="" alt="User">
             <p>{{ user.username }}</p>
+        </div>
+        <nav>
+            <a href="#"><span><img src="{% static 'imgs/Icon/Outline/grid.svg' %}" alt=""></span><span>Home</span></a>
+            <a href="#"><span><img src="{% static 'imgs/Icon/Fill/message-circle.svg' %}" alt=""></span><span>Chat</span></a>
+            <a href="#"><span><img src="{% static 'imgs/Icon/Outline/person.svg' %}" alt=""></span><span>Content</span></a>
+            <a href="#"><span><img src="{% static 'imgs/Icon/Outline/bell.svg' %}" alt=""></span><span>Notification</span></a>
+            <a href="#"><span><img src="{% static 'imgs/Icon/Outline/settings-2.svg' %}" alt=""></span><span>Setting</span></a>
+            <a href="{% url 'account_logout' %}"><span><img src="" alt="Logout"></span><span>Logout</span></a>
+            <a href="{% url 'account_signup' %}"><span><img src="{% static 'imgs/Icon/Outline/film.svg' %}" alt=""></span><span>Sign up</span></a>
+            <a href="{% url 'account_login' %}"><span><img src="{% static 'imgs/Icon/Outline/power.svg' %}" alt=""></span><span>Login</span></a>
+        </nav>
+    </header>
+    <article>
+        <h1><img src="{% static 'imgs/logo' %}">Zajel Chat</h1>
+        <hr>
+        <div class="chat-box">
+            <div class="chat-header">
+                <span><img src="{% static 'imgs/Icon/Outline/power.svg' %}" alt=""></span>
+                <span>{{ user.username }}</span>
             </div>
-
-            <nav>
-            <a href="#"><span><img src="{% static 'imgs/Icon/Outline/grid.svg' %}" alt=""></span>
-                <span>Home</span></a>
-                    <a href="#">
-                    <span><img src="{% static 'imgs/Icon/Fill/message-circle.svg' %}" alt="">
-                    </span><span>Chat</span></a>
-                   
-                <a href="#">
-                    <span><img src="{% static 'imgs/Icon/Outline/person.svg' %}" alt=""></span>
-                    <span>Content</span></a>
-                <a href="#"><span><img src="{% static 'imgs/Icon/Outline/bell.svg' %}" alt=""></span>
-                    <span>Nofiction</span></a>
-                <a href="#">
-                    <span><img src="{% static 'imgs/Icon/Outline/settings-2.svg' %}" alt=""> </span> 
-                   <span> Setting</span></a>
-                <a href="{% url 'account_logout' %}">
-                    <span><img src="" alt="L"></span>
-                    <span>Logout</span></a>
-                <a href="{% url 'account_signup' %}">
-                    <span><img src="{% static 'imgs/Icon/Outline/film.svg' %}" alt=""></span>
-                    <span>Sign up</span></a>
-                <a href="{% url 'account_login' %}">
-                    <span><img src="{% static 'imgs/Icon/Outline/power.svg' %}" alt=""></span>
-                    <span>Login</span></a>
-            </nav>
-        </header>
-        <article>
-            <h1><img src="{% static 'imgs/logo' %}">Zajel Chat</h1>
-            <hr>
-            <d class="chat-box">
-                <div class="chat-header">
-                    <span><img src=" static 'imgs/Icon/Outline/power.svg' %}" alt=""></span>
-                    <span>User name</span>
-                </div>
-                    {% for message in messages %}
-                       {% include 'chat_messages.html' %}
-                    {% endfor %}
-
-                        <!-- Add more received and sent messages here -->
-                        <form id="chat-form"
-                                hx-ext="ws"
-                                ws-connect="ws://localhost:8000/ws/{{ group_name }}/"
-                                ws-send
-                                _="on htmx:wsBeforeSend console.log('Sending WebSocket message', this)"
-                                _="on htmx:wsAfterSend reset() me">
-                            {% csrf_token %}
-                            {{ form }}
-                            <button type='submit'>Send</button>
-                            </form>
-                        </div>
-                </div>
-                <p>Group Name: {{ group_name }}</p>
-            </article>
-
-        </body>
-</html>
-         
-
-    </body>
+            <div id="chat-log">
+                {% for message in messages %}
+                    {% include 'chat_messages.html' %}
+                {% endfor %}
+            </div>
+            <form id="chat-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Send</button>
+            </form>
+        </div>
+        <p>Group Name: {{ group_name }}</p>
+    </article>
+</body>
 </html>

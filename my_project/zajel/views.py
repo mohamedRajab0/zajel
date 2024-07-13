@@ -1,3 +1,4 @@
+# views.py
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse  # Add this import statement
@@ -11,8 +12,8 @@ def index(request):
     messages = zajel_group.chat_messages.all()
     form = MessageForms()
     print("Request method:", request.method)
-    if request.htmx:
-        print("HTMX request received")
+    if request.method == 'POST':
+        print('post')
         form = MessageForms(request.POST)
         print("Form data:", form.data)
         if form.is_valid():
