@@ -1,3 +1,4 @@
+
 <div id="chat_messages" >
   
 
@@ -9,6 +10,7 @@
     </div>
     {% else %}
     <div class="received-message">
+      <p>{{ message.author }}: </p>
       <p>{{ message.body }}</p>
     </div>
 

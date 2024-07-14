@@ -50,7 +50,7 @@
         </nav>
     </header>
     <article>
-        <h1><img src="{% static 'imgs/logo' %}">Zajel Chat</h1>
+        <h1><img src="{% static 'imgs/image.png' %}" alt='logo'>Zajel Chat</h1>
         <hr>
         <div class="chat-box">
             <div class="chat-header">
@@ -62,12 +62,15 @@
                     {% include 'chat_messages.html' %}
                 {% endfor %}
             </div>
+        </div>
+            <div class= "form-chat">
             <form id="chat-form">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit">Send</button>
             </form>
-        </div>
+            </div>
+        
         <p>Group Name: {{ group_name }}</p>
     </article>
 </body>
