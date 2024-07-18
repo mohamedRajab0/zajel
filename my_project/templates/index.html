@@ -35,18 +35,11 @@
 <body>
     <header>
         <div class="user">
-            <img src="" alt="User">
+            <img src="{% static "imgs/R.png" %}" alt="User">
             <p>{{ user.username }}</p>
         </div>
         <nav>
-            <a href="#"><span><img src="{% static 'imgs/Icon/Outline/grid.svg' %}" alt=""></span><span>Home</span></a>
-            <a href="#"><span><img src="{% static 'imgs/Icon/Fill/message-circle.svg' %}" alt=""></span><span>Chat</span></a>
-            <a href="#"><span><img src="{% static 'imgs/Icon/Outline/person.svg' %}" alt=""></span><span>Content</span></a>
-            <a href="#"><span><img src="{% static 'imgs/Icon/Outline/bell.svg' %}" alt=""></span><span>Notification</span></a>
-            <a href="#"><span><img src="{% static 'imgs/Icon/Outline/settings-2.svg' %}" alt=""></span><span>Setting</span></a>
-            <a href="{% url 'account_logout' %}"><span><img src="" alt="Logout"></span><span>Logout</span></a>
-            <a href="{% url 'account_signup' %}"><span><img src="{% static 'imgs/Icon/Outline/film.svg' %}" alt=""></span><span>Sign up</span></a>
-            <a href="{% url 'account_login' %}"><span><img src="{% static 'imgs/Icon/Outline/power.svg' %}" alt=""></span><span>Login</span></a>
+            <a href="{% url 'account_logout' %}"><span><img src="{% static "imgs/Icon/Outline/person.svg" %}" alt="Logout"></span><span>Logout</span></a>
         </nav>
     </header>
     <article>
@@ -55,7 +48,7 @@
         <div class="chat-box">
             <div class="chat-header">
                 <span><img src="{% static 'imgs/Icon/Outline/power.svg' %}" alt=""></span>
-                <span>{{ user.username }}</span>
+                <span>{{ group_name }}</span>
             </div>
             <div id="chat-log">
                 {% for message in messages %}
@@ -63,15 +56,13 @@
                 {% endfor %}
             </div>
         </div>
-            <div class= "form-chat">
-            <form id="chat-form">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Send</button>
-            </form>
-            </div>
-        
-        <p>Group Name: {{ group_name }}</p>
     </article>
+    <div class= "form-chat">
+    <form id="chat-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Send</button>
+    </form>
+    </div>
 </body>
 </html>

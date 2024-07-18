@@ -161,3 +161,5 @@ LOGIN_REDIRECT_URL = 'home'
 #signup redirect
 
 ACCOUNT_LOGOUT_REDIRECT = 'account_login'
+
+ACCOUNT_LOGOUT_ON_GET = True

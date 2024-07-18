@@ -6,6 +6,9 @@ class MessageForms (ModelForm):
     class Meta:
         model = ZajelMessage
         fields = ['body']
+        widget = {
+            'body': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter message...'}),
+        }
         
 
 

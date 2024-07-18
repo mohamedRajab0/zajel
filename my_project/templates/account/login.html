@@ -1,6 +1,21 @@
-{% extends 'base.html' %}
-
-{% block extra_css %}
-
-{% endblock %}
-
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zajel Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+<div class='login-container'>
+    <div class='login'>
+        <h1>Login</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+        <a href="{% url 'account_signup' %}">Sign up</a>
+    </div>
+</div>
+</body>
+</html>

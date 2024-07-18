@@ -33,3 +33,11 @@ def index(request):
         "group_name": zajel_group.group_name,  # Pass the group_name to the template
     }
     return render(request, 'index.html', context)
+# views.py
+from django.contrib.auth import logout
+
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponse('landing.html')  # Replace 'home' with your desired URL
